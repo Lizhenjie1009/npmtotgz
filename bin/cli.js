@@ -15,7 +15,7 @@ try {
   if (process.argv[2] === 'list') {
     shell.exec(`npm list`, async function (err, file) {
       if (err) {
-        fs.writeFileSync("download-log.txt", JSON.stringify(err), { flag: 'a+' })
+        fs.writeFileSync("error-npm-list-log.txt", JSON.stringify(err), { flag: 'a+' })
       }
       file = file.replace(/\n/g, () => ',')
       .replace(/\s+/g, () => '')
@@ -94,7 +94,7 @@ function downloadDeps (npmPkg, errArr) {
       shell.exec(`npm pack ${item}`, function (err) {
         if (err) {
           errArr.push(item)
-          fs.writeFileSync("download-log.txt", JSON.stringify(errArr), { flag: 'a+' })
+          fs.writeFileSync("error-download-log.txt", JSON.stringify(errArr))
         }
         if (index == list.length - 1) {
           console.log('下载完成!')
